@@ -294,7 +294,52 @@ const productos = [
     }
 ];
 
+
+const btn1 = document.getElementById("btn-1");
+const btn2 = document.getElementById("btn-2");
+const btn3 = document.getElementById("btn-3");
+const btn4 = document.getElementById("btn-4");
+const btn5 = document.getElementById("btn-5");
+const btn6 = document.getElementById("btn-6");
+const btn7 = document.getElementById("btn-7");
+
 const card = document.querySelector('#articles');
+
+
+
+btn1.addEventListener("click", () => {
+    currentPage = 1;
+    cargarProductos();
+});
+
+btn2.addEventListener("click", () => {
+    currentPage = 2;
+    cargarProductos();
+});
+btn3.addEventListener("click", () => {
+    currentPage = 3;
+    cargarProductos();
+});
+
+btn4.addEventListener("click", () => {
+    currentPage = 4;
+    cargarProductos();
+});
+btn5.addEventListener("click", () => {
+    currentPage = 5;
+    cargarProductos();
+});
+
+btn6.addEventListener("click", () => {
+    currentPage = 6;
+    cargarProductos();
+});
+btn7.addEventListener("click", () => {
+    currentPage = 7;
+    cargarProductos();
+});
+
+
 // const menuesCategoria = document.querySelectorAll('.menu-categoria')
 
 // Filtrar productos por categoría
@@ -309,11 +354,21 @@ const filteredRemeras = productos.filter(function (productos) {
 const filteredLlaveros = productos.filter(function (productos) {
     return productos.categoria === "Llavero";
 });
+let currentPage = 1;
+
 
 
 function cargarProductos() {
-    filteredFunkos.forEach(productos => {
+    // Limpiar el contenido actual del contenedor
+    card.innerHTML = "";
 
+    // Nueva lógica para mostrar solo los productos de la página actual
+    const productosPerPage = 5; // Número de productos por página
+    const startIndex = (currentPage - 1) * productosPerPage;
+    const endIndex = startIndex + productosPerPage;
+    const productosToDisplay = filteredFunkos.slice(startIndex, endIndex);
+
+    productosToDisplay.forEach(producto => {
         const div = document.createElement("div");
         div.classList.add("articles__product");
         div.innerHTML = `
@@ -322,19 +377,22 @@ function cargarProductos() {
                     <p>NUEVO</p>
                 </div>
                 <div class="articles__product__image__photo">
-                    <img class="img--front" src="${productos.imagen_front}" alt="${productos.titulo}">
-                    <img class="img--back" src="${productos.imagen_back}" alt="${productos.titulo}">
+                    <img class="img--front" src="${producto.imagen_front}" alt="${producto.titulo}">
+                    <img class="img--back" src="${producto.imagen_back}" alt="${producto.titulo}">
                 </div>
             </div>
             <div class="articles__product__description">
-                <p class="articles__product__description__title">${productos.licencia}</p>
-                <p class="articles__product__description__subtitle">${productos.titulo}</p>
-                <p class="articles__product__description__price">${productos.precio}</p>
+                <p class="articles__product__description__title">${producto.licencia}</p>
+                <p class="articles__product__description__subtitle">${producto.titulo}</p>
+                <p class="articles__product__description__price">${producto.precio}</p>
                 <p class="articles__product__description__dues">3 CUOTAS SIN INTERÉS</p>
             </div>                
         `;
         card.append(div);
-    }),
+    });
+
+
+
     filteredRemeras.forEach(productos => {
 
         const div = document.createElement("div");
